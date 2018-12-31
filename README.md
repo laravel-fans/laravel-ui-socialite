@@ -7,6 +7,7 @@ Automatically generate database, pages and routes for Laravel Socialite. Just li
 ```
 composer require sinkcup/laravel-make-auth-socialite
 php artisan make:auth-socialite --force
+php artisan migrate
 ```
 
 ## config
