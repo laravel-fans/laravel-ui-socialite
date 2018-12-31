@@ -3,8 +3,7 @@
     "description": "Automatically generate database, pages and routes for Laravel Socialite",
     "type": "library",
     "require": {
-        "php": "^7.0",
-        "laravel/framework": "~5.6",
+        "laravel/framework": "~5.5",
         "laravel/socialite": "^3.2",
         "doctrine/dbal": "^2.9"
     },
