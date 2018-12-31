@@ -2,6 +2,8 @@
 
 Automatically generate database, pages and routes for Laravel Socialite. Just like `php artisan make:auth`.
 
+supporting Laravel 5.5, 5.6 and 5.7!
+
 ## install
 
 ```
@@ -12,12 +14,6 @@ php artisan migrate
 
 ## config
 
-ENV:
-
-```
-AUTH_SOCIAL_LOGIN_PROVIDERS=Facebook,GitHub,Google
-```
-
 add providers to `config/services.php`:
 
 ```
@@ -26,6 +22,15 @@ add providers to `config/services.php`:
         'client_secret' => env('GITHUB_CLIENT_SECRET'),
         'redirect' => env('GITHUB_CALLBACK_URL'),
     ],
+```
+
+ENV:
+
+```
+AUTH_SOCIAL_LOGIN_PROVIDERS=Facebook,GitHub,Google
+GITHUB_CLIENT_ID=asdf
+GITHUB_CLIENT_SECRET=qwer
+GITHUB_CALLBACK_URL=http://laravel-demo.localhost/login/github/callback
 ```
 
 ## screenshots
