@@ -5,7 +5,6 @@ namespace sinkcup\LaravelMakeAuthSocialite\Http\Controllers;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\ValidationException;
 use Laravel\Socialite\Facades\Socialite;
 use sinkcup\LaravelMakeAuthSocialite\SocialAccount;
 
@@ -50,9 +49,8 @@ class SocialiteLoginController extends Controller
      * @param Request $request
      * @param string $provider
      * @return Response
-     * @throws ValidationException
      */
-    public function handleProviderCallback(Request $request, $provider)
+    public function handleProviderCallback($provider)
     {
         try {
             $remote_user = Socialite::driver($provider)->user();
@@ -65,7 +63,7 @@ class SocialiteLoginController extends Controller
                     'code' => $e->getCode(),
                 ],
             ]);
-            return $this->sendFailedSocialLoginResponse($request, $provider);
+            return $this->sendFailedSocialLoginResponse($provider);
         }
 
         $social_account = SocialAccount::firstOrNew([
@@ -94,15 +92,13 @@ class SocialiteLoginController extends Controller
     /**
      * Get the failed social login response instance.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param $provider
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \Illuminate\Validation\ValidationException
      */
-    protected function sendFailedSocialLoginResponse(Request $request, $provider)
+    protected function sendFailedSocialLoginResponse($provider)
     {
-        throw ValidationException::withMessages([
+        return redirect()->route('login')->withErrors([
             $provider => [trans('auth.failed')],
         ]);
     }
