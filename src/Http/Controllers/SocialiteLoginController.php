@@ -81,6 +81,11 @@ class SocialiteLoginController extends Controller
             ]);
             $social_account->user()->associate($user);
         }
+        $social_account->nickname = $remote_user->getNickname();
+        $social_account->name = $remote_user->getName();
+        $social_account->email = $remote_user->getEmail();
+        $social_account->avatar = $remote_user->getAvatar();
+        $social_account->raw = $remote_user->getRaw();
         $social_account->access_token = $remote_user->token;
         $social_account->refresh_token = $remote_user->refreshToken; // not always provided
         $social_account->expires_in = $remote_user->expiresIn;
