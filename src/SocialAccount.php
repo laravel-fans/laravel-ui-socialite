@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class SocialAccount extends Model
 {
     protected $guarded = [];
+    protected $casts = [
+        'raw' => 'array',
+    ];
 
     public function user()
     {
