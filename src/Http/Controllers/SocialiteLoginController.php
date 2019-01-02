@@ -74,11 +74,16 @@ class SocialiteLoginController extends Controller
             $user = $social_account->user;
         } else {
             $app_user = config('auth.providers.users.model');
+            $email = $remote_user->getEmail() ?: $provider. '.' . $remote_user->getId() . '@example.com'; // faker for email unique in db
             $name = $remote_user->getName() ?: $remote_user->getNickname();
-            $user = $app_user::firstOrCreate([
-                'email' => $provider. '.' . $remote_user->getId() . '@example.com', // faker for email unique in db
-                'name' => $name ?: $provider . ' user',
-            ]);
+            $user = $app_user::updateOrCreate(
+                [
+                    'email' => $email,
+                ],
+                [
+                    'name' => $name ?: $provider . ' user',
+                ]
+            );
             $social_account->user()->associate($user);
         }
         $social_account->nickname = $remote_user->getNickname();
