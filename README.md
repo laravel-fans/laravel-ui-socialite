@@ -7,6 +7,7 @@ supporting Laravel 5.5, 5.6 and 5.7!
 ## install
 
 ```
+php artisan make:auth
 composer require sinkcup/laravel-make-auth-socialite
 php artisan make:auth-socialite --force
 php artisan migrate
