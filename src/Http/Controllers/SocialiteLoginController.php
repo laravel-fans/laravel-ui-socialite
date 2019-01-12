@@ -3,7 +3,6 @@
 namespace sinkcup\LaravelMakeAuthSocialite\Http\Controllers;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 use sinkcup\LaravelMakeAuthSocialite\SocialAccount;
@@ -29,14 +28,27 @@ class SocialiteLoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('auth.login', ['social_login_providers' => config('auth.social_login.providers')]);
+        $social_login_providers = config('auth.social_login.providers');
+        // "WeChat Service Account Login" must be used in WeChat app.
+        if (!stripos(request()->header('user-agent'), 'MicroMessenger')
+            && in_array('Weixin', $social_login_providers)) {
+            unset($social_login_providers[array_search('Weixin', $social_login_providers)]);
+        }
+        // "WeChat Web Login" will failed if you:
+        // open URL in WeChat app and "Scan QR Code in Image", or "Choose QR Code from Album"
+        if (in_array('WeixinWeb', $social_login_providers)
+        ) {
+            // set state for QR iframe Login
+            session()->put('state', csrf_token());
+        }
+        return view('auth.login', ['social_login_providers' => $social_login_providers]);
     }
 
     /**
      * Redirect the user to the Socialite Provider authentication page.
      *
      * @param $provider string
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function redirectToProvider($provider)
     {
@@ -46,9 +58,8 @@ class SocialiteLoginController extends Controller
     /**
      * Obtain the user information from Socialite Provider.
      *
-     * @param Request $request
      * @param string $provider
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handleProviderCallback($provider)
     {

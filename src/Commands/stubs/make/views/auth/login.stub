@@ -7,7 +7,27 @@
             <div class="card">
                 <div class="card-header">{{ __('Social Login') }}</div>
 
-                <div class="card-body">
+                <div class="card-body text-center">
+                    @if (in_array('WeixinWeb', $social_login_providers))
+                        <script src="https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+                        <div class="card-text" id="login_container"></div>
+                        <script>
+                            var obj = new WxLogin({
+                                self_redirect: false,
+                                id: "login_container",
+                                appid: "{{ config('services.weixinweb.client_id') }}",
+                                scope: "snsapi_login",
+                                redirect_uri: "{{ config('services.weixinweb.redirect') }}",
+                                state: "{{ csrf_token() }}",
+                                style: "",
+                                href: ""
+                            });
+                        </script>
+                        @php
+                            unset($social_login_providers[array_search('WeixinWeb', $social_login_providers)]);
+                        @endphp
+                    @endif
+
                     <ul class="nav justify-content-center">
                         @foreach ($social_login_providers as $provider)
                             <li class="nav-item mr-2">
