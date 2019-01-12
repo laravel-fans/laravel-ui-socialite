@@ -84,17 +84,16 @@ class SocialiteLoginController extends Controller
         if (!empty($social_account->user)) {
             $user = $social_account->user;
         } else {
-            $app_user = config('auth.providers.users.model');
+            $user_model = config('auth.providers.users.model');
             $email = $remote_user->getEmail() ?: $provider. '.' . $remote_user->getId() . '@example.com'; // faker for email unique in db
             $name = $remote_user->getName() ?: $remote_user->getNickname();
-            $user = $app_user::updateOrCreate(
-                [
+            $user = $user_model::where('email', $email)->first();
+            if (empty($user)) {
+                $user = $user_model::create([
                     'email' => $email,
-                ],
-                [
                     'name' => $name ?: $provider . ' user',
-                ]
-            );
+                ]);
+            }
             $social_account->user()->associate($user);
         }
         $social_account->nickname = $remote_user->getNickname();
@@ -106,6 +105,10 @@ class SocialiteLoginController extends Controller
         $social_account->refresh_token = $remote_user->refreshToken; // not always provided
         $social_account->expires_in = $remote_user->expiresIn;
         $social_account->save();
+        if (!empty($remote_user->getAvatar())) {
+            $user->avatar = $remote_user->getAvatar();
+        }
+        $user->save();
         auth()->login($user);
         return redirect()->intended($this->redirectPath());
     }
