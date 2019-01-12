@@ -81,12 +81,12 @@ class SocialiteLoginController extends Controller
             'provider' => $provider,
             'provider_user_id' => $remote_user->getId(),
         ]);
+        $name = $remote_user->getName() ?: $remote_user->getNickname();
         if (!empty($social_account->user)) {
             $user = $social_account->user;
         } else {
             $user_model = config('auth.providers.users.model');
             $email = $remote_user->getEmail() ?: $provider. '.' . $remote_user->getId() . '@example.com'; // faker for email unique in db
-            $name = $remote_user->getName() ?: $remote_user->getNickname();
             $user = $user_model::where('email', $email)->first();
             if (empty($user)) {
                 $user = $user_model::create([
@@ -107,6 +107,9 @@ class SocialiteLoginController extends Controller
         $social_account->save();
         if (!empty($remote_user->getAvatar())) {
             $user->avatar = $remote_user->getAvatar();
+        }
+        if (!empty($name)) {
+            $user->name = $name;
         }
         $user->save();
         auth()->login($user);
