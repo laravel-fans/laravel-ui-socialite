@@ -22,7 +22,7 @@ class LoginController extends SocialiteLoginController
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/settings/profile';
 
     /**
      * Create a new controller instance.

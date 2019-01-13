@@ -32,6 +32,7 @@ class MakeAuthSocialite extends Command
      */
     protected $views = [
         'auth/login.stub' => 'auth/login.blade.php',
+        'user/profile_edit.stub' => 'user/profile_edit.blade.php',
     ];
 
     /**
@@ -48,15 +49,25 @@ class MakeAuthSocialite extends Command
         if (! $this->option('views')) {
             file_put_contents(
                 app_path('Http/Controllers/Auth/LoginController.php'),
-                $this->compileControllerStub()
+                $this->compileControllerStub('auth/LoginController.stub')
+            );
+            file_put_contents(
+                app_path('Http/Controllers/ProfileController.php'),
+                $this->compileControllerStub('ProfileController.stub')
             );
 
-            if (strpos(file_get_contents(base_path('routes/web.php')), 'login/{provider}/callback') === false) {
-                file_put_contents(
-                    base_path('routes/web.php'),
-                    file_get_contents(__DIR__ . '/stubs/make/routes.stub'),
-                    FILE_APPEND
-                );
+            $web_routes = file_get_contents(base_path('routes/web.php'));
+            foreach (explode("\n", file_get_contents(__DIR__ . '/stubs/make/routes.stub')) as $line) {
+                if (empty($line)) {
+                    continue;
+                }
+                if (strpos($web_routes, $line) === false) {
+                    file_put_contents(
+                        base_path('routes/web.php'),
+                        $line . "\n",
+                        FILE_APPEND
+                    );
+                }
             }
         }
 
@@ -71,6 +82,9 @@ class MakeAuthSocialite extends Command
     protected function createDirectories()
     {
         if (! is_dir($directory = resource_path('views/auth'))) {
+            mkdir($directory, 0755, true);
+        }
+        if (! is_dir($directory = resource_path('views/user'))) {
             mkdir($directory, 0755, true);
         }
     }
@@ -101,12 +115,12 @@ class MakeAuthSocialite extends Command
      *
      * @return string
      */
-    protected function compileControllerStub()
+    protected function compileControllerStub($stub)
     {
         return str_replace(
             '{{namespace}}',
             $this->getAppNamespace(),
-            file_get_contents(__DIR__.'/stubs/make/controllers/auth/LoginController.stub')
+            file_get_contents(__DIR__.'/stubs/make/controllers/' . $stub)
         );
     }
 
