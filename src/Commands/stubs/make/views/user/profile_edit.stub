@@ -6,9 +6,6 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Profile') }}</div>
-                @if ($user->avatar)
-                    <img class="card-img-top w-50 p-3" src="{{ $user->avatar }}" alt="{{ $user->name }} avatar">
-                @endif
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('profile.update') }}">
@@ -16,6 +13,13 @@
                         @method('PUT')
 
                         <div class="form-group row">
+                            @if ($user->avatar)
+                                <label for="avatar" class="col-md-4 col-form-label text-md-right">{{ __('Avatar') }}</label>
+                                <div class="col-md-6">
+                                    <img class="img-thumbnail p-3" src="{{ $user->avatar }}" alt="{{ $user->name }} avatar">
+                                </div>
+                            @endif
+
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
