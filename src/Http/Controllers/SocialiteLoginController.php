@@ -30,14 +30,17 @@ class SocialiteLoginController extends Controller
     {
         $social_login_providers = config('auth.social_login.providers');
         // "WeChat Service Account Login" must be used in WeChat app.
-        if (!stripos(request()->header('user-agent'), 'MicroMessenger')
-            && in_array('Weixin', $social_login_providers)) {
-            unset($social_login_providers[array_search('Weixin', $social_login_providers)]);
+        if (!stripos(request()->header('user-agent'), 'MicroMessenger')) {
+            if (in_array('Weixin', $social_login_providers)) {
+                unset($social_login_providers[array_search('Weixin', $social_login_providers)]);
+            }
+        } elseif (in_array('Weixin', $social_login_providers)
+            && in_array('WeixinWeb', $social_login_providers)) {
+            unset($social_login_providers[array_search('WeixinWeb', $social_login_providers)]);
         }
         // "WeChat Web Login" will failed if you:
-        // open URL in WeChat app and "Scan QR Code in Image", or "Choose QR Code from Album"
-        if (in_array('WeixinWeb', $social_login_providers)
-        ) {
+        // open URL in WeChat app and then "Scan QR Code in Image", or "Choose QR Code from Album"
+        if (in_array('WeixinWeb', $social_login_providers)) {
             // set state for QR iframe Login
             session()->put('state', csrf_token());
         }
