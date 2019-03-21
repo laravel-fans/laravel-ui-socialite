@@ -79,17 +79,25 @@ class SocialiteLoginController extends Controller
             ]);
             return $this->sendFailedSocialLoginResponse($provider);
         }
-
+        if ($provider == 'weixin') {
+            $provider = 'wechat-service-account';
+        }
+        if ($provider == 'weixinweb') {
+            $provider = 'wechat-web';
+        }
+        $provider_user_id = $remote_user->getId();
         $social_account = SocialAccount::firstOrNew([
             'provider' => $provider,
-            'provider_user_id' => $remote_user->getId(),
+            'provider_user_id' => $provider_user_id,
         ]);
         $name = $remote_user->getName() ?: $remote_user->getNickname();
-        if (!empty($social_account->user)) {
-            $user = $social_account->user;
+        $other_social_account = SocialAccount::where('provider_user_id', $provider_user_id)
+            ->where('provider', '!=', $provider)->first();
+        if (!empty($other_social_account->user)) {
+            $user = $other_social_account->user;
         } else {
             $user_model = config('auth.providers.users.model');
-            $email = $remote_user->getEmail() ?: $provider. '.' . $remote_user->getId() . '@example.com'; // faker for email unique in db
+            $email = $remote_user->getEmail() ?: $provider. '.' . $provider_user_id . '@example.com'; // faker for email unique in db
             $user = $user_model::where('email', $email)->first();
             if (empty($user)) {
                 $user = $user_model::create([
