@@ -57,7 +57,7 @@ class SocialiteLoginController extends Controller
     {
         $provider = self::convertProviderSlugToServiceName($providerSlug);
         Log::debug(__METHOD__, ['scopes' => config("services.{$provider}.scopes"), 'key' => "services.{$provider}.scopes"]);
-        return Socialite::driver(str_replace('-', '_', $provider))
+        return Socialite::driver($provider)
             // if you have defined "scopes" in config, it will be load at here
             // docs: https://laravel.com/docs/5.8/socialite#access-scopes
             ->scopes(config("services.{$provider}.scopes"))
