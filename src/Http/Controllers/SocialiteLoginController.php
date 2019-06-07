@@ -56,10 +56,10 @@ class SocialiteLoginController extends Controller
     public function redirectToProvider($providerSlug)
     {
         $provider = self::convertProviderSlugToServiceName($providerSlug);
-        Log::debug(__METHOD__, ['scopes' => config("services.{$provider}.scopes"), 'key' => "services.{$provider}.scopes"]);
+        Log::debug(__METHOD__, ['scopes' => config("services.{$provider}.scopes")]);
         return Socialite::driver($provider)
             // if you have defined "scopes" in config, it will be load at here
-            // docs: https://laravel.com/docs/5.8/socialite#access-scopes
+            // docs: https://laravel.com/docs/socialite#access-scopes
             ->scopes(config("services.{$provider}.scopes"))
             ->redirect();
     }
@@ -90,9 +90,10 @@ class SocialiteLoginController extends Controller
         }
         Log::debug(__METHOD__, ['remote_user' => $remote_user]);
 
+        // if logged in, should link multiple auth providers to an account
+        $user_id = auth()->user()->id ?? null;
         // if you have defined "union_id_with" in config, it will be load at here
         // some providers use one union id, e.g., WeChat Web, WeChat Service Account
-        $user_id = null;
         if (!empty($union_id_with_providers = config("services.{$provider}.union_id_with"))) {
             $user_id = SocialAccount::whereIn('provider', array_diff($union_id_with_providers, [$provider]))
                 ->where('provider_user_id', $remote_user->getId())

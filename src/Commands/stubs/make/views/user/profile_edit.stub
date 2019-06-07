@@ -56,6 +56,24 @@
                         </div>
                     </form>
                 </div>
+
+                <div class="card">
+                    <div class="card-header">{{ __('Linked Accounts') }}</div>
+
+                    <div class="card-body text-center">
+                        <ul class="nav justify-content-center">
+                            @foreach ($social_login_providers as $provider)
+                                <li class="nav-item mr-2 mb-2">
+                                    @if (in_array(strtolower($provider), $linked_providers))
+                                        <a class="nav-link btn btn-success disabled" href="#" role="button">{{ __($provider) }}</a>
+                                    @else
+                                        <a class="nav-link btn btn-primary" href="/login/{{ strtolower(str_replace('_', '-', $provider)) }}" role="button">{{ __($provider) }}</a>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
