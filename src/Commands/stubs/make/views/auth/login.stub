@@ -8,9 +8,33 @@
                 <div class="panel-heading">Social Login</div>
 
                 <div class="panel-body text-center">
-                    @foreach ($social_login_providers as $provider)
-                        <a class="nav-link btn {{ $errors->has(strtolower($provider)) ? 'btn-danger' : 'btn-primary' }}" href="/login/{{ strtolower($provider) }}" role="button">{{ __($provider) }}</a>
-                    @endforeach
+                    @if (in_array('wechat_web', $social_login_providers))
+                        <script src="https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+                        <div class="card-text" id="login_container"></div>
+                        <script>
+                            var obj = new WxLogin({
+                                self_redirect: false,
+                                id: "login_container",
+                                appid: "{{ config('services.wechat_web.client_id') }}",
+                                scope: "snsapi_login",
+                                redirect_uri: "{{ config('services.wechat_web.redirect') }}",
+                                state: "{{ csrf_token() }}",
+                                style: "",
+                                href: ""
+                            });
+                        </script>
+                        @php
+                            unset($social_login_providers[array_search('wechat_web', $social_login_providers)]);
+                        @endphp
+                    @endif
+
+                    <ul class="list-inline">
+                        @foreach ($social_login_providers as $provider)
+                            <li>
+                                <a class="nav-link btn {{ $errors->has(strtolower($provider)) ? 'btn-danger' : 'btn-primary' }}" href="/login/{{ strtolower($provider) }}" role="button">{{ __($provider) }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
 
