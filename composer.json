@@ -1,11 +1,12 @@
 {
     "name": "sinkcup/laravel-make-auth-socialite",
-    "description": "Automatically generate database, pages and routes for Laravel Socialite",
+    "description": "Automatically generate database, pages, and routes for Laravel Socialite",
     "type": "library",
     "require": {
-        "laravel/framework": "^5.7",
-        "laravel/socialite": "^4.0",
-        "doctrine/dbal": "^2.9"
+        "laravel/framework": "~5.5.0|~5.8.0|~5.9.0",
+        "laravel/socialite": "~3.3.0|~4.1.0",
+        "doctrine/dbal": "^2.9",
+        "phlak/semver": "^2.0"
     },
     "license": "MIT",
     "authors": [

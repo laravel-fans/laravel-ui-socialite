@@ -4,6 +4,7 @@ namespace sinkcup\LaravelMakeAuthSocialite\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Console\DetectsApplicationNamespace;
+use PHLAK\SemVer\Version;
 
 class MakeAuthSocialite extends Command
 {
@@ -102,11 +103,11 @@ class MakeAuthSocialite extends Command
                     continue;
                 }
             }
-
-            copy(
-                __DIR__.'/stubs/make/views/'.$key,
-                $view
-            );
+            $version = new Version(app()->version());
+            $path = __DIR__.'/stubs/make/views/';
+            $file_for_version = $key.'_'.$version->major.'.'.$version->minor;
+            $file_path = file_exists($path.$file_for_version) ? $path.$file_for_version : $path.$key;
+            copy($file_path, $view);
         }
     }
 

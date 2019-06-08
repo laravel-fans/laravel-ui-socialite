@@ -1,13 +1,18 @@
 # Laravel Make Auth Socialite
 
-Automatically generate database, pages and routes for Laravel Socialite. Just like `php artisan make:auth`.
+Automatically generate database, pages, and routes for Laravel Socialite. Just like `php artisan make:auth`.
 
-supporting Laravel 5.5, 5.6 and 5.7!
+Login with multiple providers using the same email will be determined as one user.
+
+When logged in, you can link all providers to the current user, and login with them next time.
+
+Special handling for [WeChat](https://sinkcup.github.io/laravel-socialite-wechat-login).
+
+supporting Laravel 5.5 and 5.8!
 
 ## install
 
 ```
-php artisan make:auth
 composer require sinkcup/laravel-make-auth-socialite
 php artisan make:auth-socialite --force
 php artisan migrate
@@ -15,7 +20,7 @@ php artisan migrate
 
 ## config
 
-add providers to `config/services.php`:
+add to `config/services.php`:
 
 ```
     'github' => [
@@ -25,7 +30,7 @@ add providers to `config/services.php`:
     ],
 ```
 
-ENV:
+add to `.env`:
 
 ```
 AUTH_SOCIAL_LOGIN_PROVIDERS=Facebook,GitHub,Google
@@ -36,7 +41,7 @@ GITHUB_CALLBACK_URL=http://laravel-demo.localhost/login/github/callback
 
 ## screenshots
 
-![Login page](https://user-images.githubusercontent.com/4971414/50548717-bac5f100-0c8c-11e9-974a-45dfbe1c41da.png)
-![GitHub OAuth Login](https://user-images.githubusercontent.com/4971414/50548725-d3cea200-0c8c-11e9-9b01-9b949bcb6b4d.png)
-![logged in](https://user-images.githubusercontent.com/4971414/50548746-24de9600-0c8d-11e9-8262-213ffa1309be.png)
-![database](https://user-images.githubusercontent.com/4971414/50548808-f2816880-0c8d-11e9-8227-d8128f040c30.png)
+![Laravel Socialite Login page](https://user-images.githubusercontent.com/4971414/59020731-2a17c080-887d-11e9-8cc7-c8c46f97dd1b.png)
+![GitHub OAuth Login](https://user-images.githubusercontent.com/4971414/59006611-764f0a80-8855-11e9-9ac9-0f4de8ff6e77.png)
+![Laravel Socialite Profile page and Linked Accounts](https://user-images.githubusercontent.com/4971414/59092834-120b7400-8945-11e9-8b1d-ae50c862e6a8.png)
+![Laravel Socialite link multiple providers to one user](https://user-images.githubusercontent.com/4971414/59086178-876e4900-8933-11e9-8dad-e2a449a5689e.png)
