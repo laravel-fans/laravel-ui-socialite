@@ -1,5 +1,7 @@
 # Laravel Make Auth Socialite
 
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/sinkcup/laravel-make-auth-socialite/blob/master/LICENSE)
+
 Automatically generate database, pages, and routes for Laravel Socialite. Just like `php artisan make:auth`.
 
 Login with multiple providers using the same email will be determined as one user.
