@@ -43,6 +43,9 @@ GITHUB_CALLBACK_URL=http://laravel-demo.localhost/login/github/callback
 
 # disable password login
 AUTH_PASSWORD_LOGIN_ENABLED=0
+
+# disable register
+AUTH_OPTIONS_REGISTER=0
 ```
 
 ## screenshots
