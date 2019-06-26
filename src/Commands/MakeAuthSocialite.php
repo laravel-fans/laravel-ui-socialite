@@ -62,6 +62,10 @@ class MakeAuthSocialite extends Command
                 if (empty($line)) {
                     continue;
                 }
+                if (strpos($line, 'Auth::routes(') !== false) {
+                    $web_routes = str_replace('Auth::routes();', $line, file_get_contents(base_path('routes/web.php')));
+                    file_put_contents(base_path('routes/web.php'), $web_routes);
+                }
                 if (strpos($web_routes, $line) === false) {
                     file_put_contents(
                         base_path('routes/web.php'),

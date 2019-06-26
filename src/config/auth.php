@@ -20,4 +20,10 @@ return [
     'password_login' => [
         'enabled' => env('AUTH_PASSWORD_LOGIN_ENABLED', true),
     ],
+
+    'options' => [
+        'register' => env('AUTH_OPTIONS_REGISTER', true),
+        'reset' => env('AUTH_OPTIONS_RESET', true),
+        'verify' => env('AUTH_OPTIONS_VERIFY', false),
+    ],
 ];

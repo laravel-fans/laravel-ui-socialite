@@ -4,3 +4,5 @@ Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCall
 
 Route::get('settings/profile', 'ProfileController@edit')->name('profile.edit');
 Route::put('settings/profile', 'ProfileController@update')->name('profile.update');
+
+Auth::routes(config('auth.options'));
