@@ -40,6 +40,9 @@ AUTH_SOCIAL_LOGIN_PROVIDERS=Facebook,GitHub,Google
 GITHUB_CLIENT_ID=asdf
 GITHUB_CLIENT_SECRET=qwer
 GITHUB_CALLBACK_URL=http://laravel-demo.localhost/login/github/callback
+
+# disable password login
+AUTH_PASSWORD_LOGIN_ENABLED=0
 ```
 
 ## screenshots

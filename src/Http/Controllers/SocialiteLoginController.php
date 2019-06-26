@@ -44,7 +44,10 @@ class SocialiteLoginController extends Controller
             // set state for QR iframe Login
             session()->put('state', csrf_token());
         }
-        return view('auth.login', ['social_login_providers' => $social_login_providers]);
+        return view('auth.login', [
+            'social_login' => config('auth.social_login'),
+            'password_login' => config('auth.password_login'),
+        ]);
     }
 
     /**
