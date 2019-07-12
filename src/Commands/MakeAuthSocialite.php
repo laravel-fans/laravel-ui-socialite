@@ -57,8 +57,12 @@ class MakeAuthSocialite extends Command
                 $this->compileControllerStub('ProfileController.stub')
             );
             copy(
-                __DIR__.'/stubs/make/database/factories/SocialAccountFactory.php',
+                __DIR__.'/stubs/make/database/factories/SocialAccountFactory.stub',
                 database_path('factories/SocialAccountFactory.php')
+            );
+            copy(
+                __DIR__.'/stubs/make/tests/TestCase.stub',
+                app_path().'/../tests/TestCase.php'
             );
             file_put_contents(
                 app_path().'/../tests/Feature/ProfileControllerTest.php',
