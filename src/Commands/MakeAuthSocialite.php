@@ -56,6 +56,14 @@ class MakeAuthSocialite extends Command
                 app_path('Http/Controllers/ProfileController.php'),
                 $this->compileControllerStub('ProfileController.stub')
             );
+            copy(
+                __DIR__.'/stubs/make/database/factories/SocialAccountFactory.php',
+                database_path('factories/SocialAccountFactory.php')
+            );
+            file_put_contents(
+                app_path().'/../tests/Feature/ProfileControllerTest.php',
+                $this->compileStub('tests/Feature/ProfileControllerTest.stub')
+            );
 
             $web_routes = file_get_contents(base_path('routes/web.php'));
             foreach (explode("\n", file_get_contents(__DIR__ . '/stubs/make/routes.stub')) as $line) {
@@ -116,7 +124,7 @@ class MakeAuthSocialite extends Command
     }
 
     /**
-     * Compiles the HomeController stub.
+     * Compiles Controller stub.
      *
      * @return string
      */
@@ -126,6 +134,20 @@ class MakeAuthSocialite extends Command
             '{{namespace}}',
             $this->getAppNamespace(),
             file_get_contents(__DIR__.'/stubs/make/controllers/' . $stub)
+        );
+    }
+
+    /**
+     * Compiles Controller stub.
+     *
+     * @return string
+     */
+    protected function compileStub($path)
+    {
+        return str_replace(
+            '{{namespace}}',
+            $this->getAppNamespace(),
+            file_get_contents(__DIR__.'/stubs/make/' . $path)
         );
     }
 
