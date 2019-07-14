@@ -18,7 +18,11 @@ class PackageServiceProvider extends ServiceProvider
                 Commands\MakeAuthSocialite::class,
             ]);
         }
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        // HACK: package migrations be migrated before laravel migrations when run test
+        // error: There is no column with name 'password' on table 'users'.
+        if (!$this->app->runningUnitTests()) {
+            $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        }
     }
 
     /**
