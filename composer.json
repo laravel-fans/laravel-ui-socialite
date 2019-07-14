@@ -32,5 +32,9 @@
                 "sinkcup\\LaravelMakeAuthSocialite\\PackageServiceProvider"
             ]
         }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.5",
+        "phpunit/phpunit": "^8.2"
     }
 }

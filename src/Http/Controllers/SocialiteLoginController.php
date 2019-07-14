@@ -4,6 +4,7 @@ namespace sinkcup\LaravelMakeAuthSocialite\Http\Controllers;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\ViewErrorBag;
 use Laravel\Socialite\Facades\Socialite;
 use sinkcup\LaravelMakeAuthSocialite\SocialAccount;
 
@@ -47,6 +48,7 @@ class SocialiteLoginController extends Controller
         return view('auth.login', [
             'social_login' => config('auth.social_login'),
             'password_login' => config('auth.password_login'),
+            'errors' => session('errors', new ViewErrorBag()), // HACK: only for test
         ]);
     }
 

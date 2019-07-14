@@ -1,5 +1,7 @@
 # Laravel Make Auth Socialite
 
+[![CircleCI](https://circleci.com/gh/sinkcup/laravel-make-auth-socialite.svg?style=svg)](https://circleci.com/gh/sinkcup/laravel-make-auth-socialite)
+[![codecov](https://codecov.io/gh/sinkcup/laravel-make-auth-socialite/branch/master/graph/badge.svg)](https://codecov.io/gh/sinkcup/laravel-make-auth-socialite)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/sinkcup/laravel-make-auth-socialite/blob/master/LICENSE)
 
 Automatically generate database, pages, and routes for Laravel Socialite. Just like `php artisan make:auth`.
