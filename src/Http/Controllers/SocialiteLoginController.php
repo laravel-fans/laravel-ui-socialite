@@ -61,7 +61,6 @@ class SocialiteLoginController extends Controller
     public function redirectToProvider($providerSlug)
     {
         $provider = self::convertProviderSlugToServiceName($providerSlug);
-        Log::debug(__METHOD__, ['scopes' => config("services.{$provider}.scopes")]);
         return Socialite::driver($provider)
             // if you have defined "scopes" in config, it will be load at here
             // docs: https://laravel.com/docs/socialite#access-scopes
@@ -93,7 +92,6 @@ class SocialiteLoginController extends Controller
             ]);
             return $this->sendFailedSocialLoginResponse($provider);
         }
-        Log::debug(__METHOD__, ['remote_user' => $remote_user]);
 
         // if logged in, should link multiple auth providers to an account
         $user_id = auth()->user()->id ?? null;
@@ -114,7 +112,8 @@ class SocialiteLoginController extends Controller
             $user = $social_account->user;
         } else {
             $user_model = config('auth.providers.users.model');
-            $email = $remote_user->getEmail() ?: $provider. '.' . $remote_user->getId() . '@example.com'; // faker for email unique in db
+            // faker email for unique in db
+            $email = $remote_user->getEmail() ?: $provider . '.' . $remote_user->getId() . '@example.com';
             $user = $user_model::where('email', $email)->first();
             if (empty($user)) {
                 $user = $user_model::create([
@@ -124,16 +123,7 @@ class SocialiteLoginController extends Controller
             }
             $social_account->user()->associate($user);
         }
-        $social_account->nickname = $remote_user->getNickname();
-        $social_account->name = $remote_user->getName();
-        $social_account->email = $remote_user->getEmail();
-        $social_account->avatar = $remote_user->getAvatar();
-        $social_account->raw = $remote_user->getRaw();
-        $social_account->access_token = $remote_user->token;
-        $social_account->refresh_token = $remote_user->refreshToken; // not always provided
-        $social_account->expires_in = $remote_user->expiresIn;
-        $social_account->save();
-        Log::debug(__METHOD__, ['social_account' => $social_account->toArray()]);
+        $social_account->sync($remote_user);
         if (!empty($remote_user->getAvatar())) {
             $user->avatar = $remote_user->getAvatar();
         }
@@ -166,7 +156,6 @@ class SocialiteLoginController extends Controller
      */
     public static function convertProviderSlugToServiceName($providerSlug)
     {
-        Log::debug(__METHOD__, ['providerSlug' => $providerSlug]);
         return str_replace('-', '_', $providerSlug);
     }
 }

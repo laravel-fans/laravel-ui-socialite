@@ -57,15 +57,15 @@ class MakeAuthSocialite extends Command
                 $this->compileControllerStub('ProfileController.stub')
             );
             copy(
-                __DIR__.'/stubs/make/database/factories/SocialAccountFactory.stub',
+                __DIR__ . '/stubs/make/database/factories/SocialAccountFactory.stub',
                 database_path('factories/SocialAccountFactory.php')
             );
             copy(
-                __DIR__.'/stubs/make/tests/TestCase.stub',
-                app_path().'/../tests/TestCase.php'
+                __DIR__ . '/stubs/make/tests/TestCase.stub',
+                app_path() . '/../tests/TestCase.php'
             );
             file_put_contents(
-                app_path().'/../tests/Feature/ProfileControllerTest.php',
+                app_path() . '/../tests/Feature/ProfileControllerTest.php',
                 $this->compileStub('tests/Feature/ProfileControllerTest.stub')
             );
 
@@ -114,15 +114,15 @@ class MakeAuthSocialite extends Command
     protected function exportViews()
     {
         foreach ($this->views as $key => $value) {
-            if (file_exists($view = resource_path('views/'.$value)) && ! $this->option('force')) {
+            if (file_exists($view = resource_path('views/' . $value)) && ! $this->option('force')) {
                 if (! $this->confirm("The [{$value}] view already exists. Do you want to replace it?")) {
                     continue;
                 }
             }
             $version = new Version(app()->version());
-            $path = __DIR__.'/stubs/make/views/';
-            $file_for_version = $key.'_'.$version->major.'.'.$version->minor;
-            $file_path = file_exists($path.$file_for_version) ? $path.$file_for_version : $path.$key;
+            $path = __DIR__ . '/stubs/make/views/';
+            $file_for_version = $key . '_' . $version->major . '.' . $version->minor;
+            $file_path = file_exists($path . $file_for_version) ? $path . $file_for_version : $path . $key;
             copy($file_path, $view);
         }
     }
@@ -137,7 +137,7 @@ class MakeAuthSocialite extends Command
         return str_replace(
             '{{namespace}}',
             $this->getAppNamespace(),
-            file_get_contents(__DIR__.'/stubs/make/controllers/' . $stub)
+            file_get_contents(__DIR__ . '/stubs/make/controllers/' . $stub)
         );
     }
 
@@ -151,7 +151,7 @@ class MakeAuthSocialite extends Command
         return str_replace(
             '{{namespace}}',
             $this->getAppNamespace(),
-            file_get_contents(__DIR__.'/stubs/make/' . $path)
+            file_get_contents(__DIR__ . '/stubs/make/' . $path)
         );
     }
 

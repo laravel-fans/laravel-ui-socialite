@@ -15,7 +15,8 @@ class AddNicknameToSocialAccountsTable extends Migration
     {
         Schema::table('social_accounts', function (Blueprint $table) {
             if (!Schema::hasColumn('social_accounts', 'nickname')) {
-                $table->string('nickname', 95)->nullable(); // index contains 2 string less then utf8mb4 max index length 191
+                // index contains 2 string less then utf8mb4 max index length 191
+                $table->string('nickname', 95)->nullable();
             }
         });
     }
