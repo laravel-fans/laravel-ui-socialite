@@ -35,5 +35,6 @@ jobs:
       # run tests with phpunit or codecept
       - run:
           command: |
+            ./lint.sh
             ./phpunit.sh
             bash <(curl -s https://codecov.io/bash)
