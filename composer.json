@@ -23,6 +23,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "App\\": "vendor/orchestra/testbench-core/laravel/app/",
             "sinkcup\\LaravelMakeAuthSocialite\\Tests\\": "tests/"
         }
     },
@@ -37,6 +38,7 @@
     "require-dev": {
         "orchestra/testbench": "^3.5",
         "squizlabs/php_codesniffer": "^3.4",
+        "fzaninotto/faker": "^1.8",
         "phpunit/phpunit": "^8.2"
     }
 }
