@@ -1,12 +1,12 @@
 <?php
 
-namespace sinkcup\LaravelMakeAuthSocialite\Http\Controllers;
+namespace sinkcup\LaravelUiSocialite\Socialite\Controllers;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ViewErrorBag;
 use Laravel\Socialite\Facades\Socialite;
-use sinkcup\LaravelMakeAuthSocialite\SocialAccount;
+use sinkcup\LaravelUiSocialite\SocialAccount;
 
 class SocialiteLoginController extends Controller
 {
@@ -29,24 +29,24 @@ class SocialiteLoginController extends Controller
      */
     public function showLoginForm()
     {
-        $social_login_providers = config('auth.social_login.providers');
+        $providers = config('auth.social_login.providers');
         // "WeChat Service Account Login" must be used in WeChat app.
         if (!stripos(request()->header('user-agent'), 'MicroMessenger')) {
-            if (in_array('wechat_service_account', $social_login_providers)) {
-                unset($social_login_providers[array_search('wechat_service_account', $social_login_providers)]);
+            if (in_array('wechat_service_account', $providers)) {
+                unset($providers[array_search('wechat_service_account', $providers)]);
             }
-        } elseif (in_array('wechat_service_account', $social_login_providers)
-            && in_array('wechat_web', $social_login_providers)) {
-            unset($social_login_providers[array_search('wechat_web', $social_login_providers)]);
+        } elseif (in_array('wechat_service_account', $providers)
+            && in_array('wechat_web', $providers)) {
+            unset($providers[array_search('wechat_web', $providers)]);
         }
         // "WeChat Web Login" will failed if you:
         // open URL in WeChat app and then "Scan QR Code in Image", or "Choose QR Code from Album"
-        if (in_array('wechat_web', $social_login_providers)) {
+        if (in_array('wechat_web', $providers)) {
             // set state for QR iframe Login
             session()->put('state', csrf_token());
         }
         return view('auth.login', [
-            'social_login' => config('auth.social_login'),
+            'social_login' => array_merge(config('auth.social_login'), compact('providers')),
             'password_login' => config('auth.password_login'),
             'errors' => session('errors', new ViewErrorBag()), // HACK: only for test
         ]);
