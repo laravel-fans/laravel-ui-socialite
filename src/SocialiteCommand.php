@@ -96,7 +96,7 @@ class SocialiteCommand extends Command
             }
 
             $version = new Version(app()->version());
-            $path = __DIR__.'/Socialite/'.$this->argument('type').'-stubs/';
+            $path = __DIR__ . '/Socialite/' . $this->argument('type') . '-stubs/';
             $file_for_version = $key . '_' . $version->major . '.' . $version->minor;
             $file_path = file_exists($path . $file_for_version) ? $path . $file_for_version : $path . $key;
             copy($file_path, $view);
