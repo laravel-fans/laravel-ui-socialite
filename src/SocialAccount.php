@@ -1,6 +1,6 @@
 <?php
 
-namespace sinkcup\LaravelMakeAuthSocialite;
+namespace sinkcup\LaravelUiSocialite;
 
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Socialite\AbstractUser;

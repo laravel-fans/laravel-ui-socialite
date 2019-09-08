@@ -1,6 +1,6 @@
 <?php
 
-namespace sinkcup\LaravelMakeAuthSocialite\Http\Controllers;
+namespace sinkcup\LaravelUiSocialite\Socialite\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

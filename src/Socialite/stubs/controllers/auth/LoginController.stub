@@ -2,7 +2,7 @@
 
 namespace {{namespace}}Http\Controllers\Auth;
 
-use sinkcup\LaravelMakeAuthSocialite\Http\Controllers\SocialiteLoginController;
+use sinkcup\LaravelUiSocialite\Socialite\Controllers\SocialiteLoginController;
 
 class LoginController extends SocialiteLoginController
 {

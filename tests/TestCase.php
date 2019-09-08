@@ -1,10 +1,11 @@
 <?php
 
-namespace sinkcup\LaravelMakeAuthSocialite\Tests;
+namespace sinkcup\LaravelUiSocialite\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Route;
-use sinkcup\LaravelMakeAuthSocialite\PackageServiceProvider;
+use Laravel\Ui\UiServiceProvider;
+use sinkcup\LaravelUiSocialite\PackageServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase
@@ -14,7 +15,10 @@ class TestCase extends OrchestraTestCase
 
     protected function getPackageProviders($app)
     {
-        return [PackageServiceProvider::class];
+        return [
+            PackageServiceProvider::class,
+            UiServiceProvider::class,
+        ];
     }
 
     protected function setUp(): void
@@ -34,15 +38,17 @@ class TestCase extends OrchestraTestCase
             'uses' => 'App\Http\Controllers\ProfileController@edit',
             'as' => 'profile.edit',
         ]);
-        @mkdir(__DIR__ . '/../vendor/orchestra/testbench-core/laravel/app/Http/Controllers/', 0755, true);
-        @mkdir(__DIR__ . '/../vendor/orchestra/testbench-core/laravel/routes/');
-        @mkdir(__DIR__ . '/../vendor/orchestra/testbench-core/laravel/app/Http/Controllers/Auth/');
-        @mkdir(__DIR__ . '/../vendor/orchestra/testbench-core/laravel/tests/Feature/', 0755, true);
-        @unlink(__DIR__ . '/../vendor/orchestra/testbench-core/laravel/routes/web.php');
-        touch(__DIR__ . '/../vendor/orchestra/testbench-core/laravel/routes/web.php');
-        copy(__DIR__ . '/User.stub', __DIR__ . '/../vendor/orchestra/testbench-core/laravel/app/User.php');
-        $this->artisan('make:auth', ['--force' => true])->run();
-        $this->artisan('make:auth-socialite', ['--force' => true])->run();
+        $laravel_path = __DIR__ . '/../vendor/orchestra/testbench-core/laravel';
+        @mkdir($laravel_path . '/app/Http/Controllers/', 0755, true);
+        @mkdir($laravel_path . '/routes/');
+        @mkdir($laravel_path . '/app/Http/Controllers/Auth/');
+        @mkdir($laravel_path . '/tests/Feature/', 0755, true);
+        @unlink($laravel_path . '/routes/web.php');
+        touch($laravel_path . '/routes/web.php');
+        copy(__DIR__ . '/User.stub', $laravel_path . '/app/User.php');
+        copy(__DIR__ . '/UserFactory.stub', $laravel_path . '/database/factories/UserFactory.php');
+        $this->artisan('ui:auth', ['--force' => true])->run();
+        $this->artisan('ui:socialite', ['--force' => true])->run();
         $this->loadLaravelMigrations();
         $this->loadMigrationsFrom(__DIR__ . '/../src/database/migrations');
         $this->artisan('migrate')->run();

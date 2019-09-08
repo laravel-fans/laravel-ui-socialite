@@ -1,10 +1,10 @@
-# Laravel Make Auth Socialite
+# Laravel UI Socialite
 
 [![CircleCI](https://circleci.com/gh/sinkcup/laravel-make-auth-socialite.svg?style=svg)](https://circleci.com/gh/sinkcup/laravel-make-auth-socialite)
 [![codecov](https://codecov.io/gh/sinkcup/laravel-make-auth-socialite/branch/master/graph/badge.svg)](https://codecov.io/gh/sinkcup/laravel-make-auth-socialite)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/sinkcup/laravel-make-auth-socialite/blob/master/LICENSE)
 
-Automatically generate database, pages, and routes for Laravel Socialite. Just like `php artisan make:auth`.
+Automatically generate database, pages, and routes for Laravel Socialite. Just like `php artisan ui:auth`.
 
 Login with multiple providers using the same email will be determined as one user.
 
@@ -12,14 +12,14 @@ When logged in, you can link all providers to the current user, and login with t
 
 Special handling for [WeChat](https://sinkcup.github.io/laravel-socialite-wechat-login).
 
-supporting Laravel 5.5 and 5.8!
+supporting Laravel 6.0!
 
 ## install
 
 ```
-composer require sinkcup/laravel-make-auth-socialite
-php artisan make:auth
-php artisan make:auth-socialite
+composer require sinkcup/laravel-ui-socialite
+php artisan ui:auth
+php artisan ui:socialite
 php artisan migrate
 ```
 
