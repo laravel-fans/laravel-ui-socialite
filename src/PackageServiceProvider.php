@@ -18,6 +18,11 @@ class PackageServiceProvider extends ServiceProvider
                 SocialiteCommand::class,
             ]);
         }
+        // HACK: package migrations be migrated before laravel migrations when run test
+        // error: There is no column with name 'password' on table 'users'.
+        if (!$this->app->runningUnitTests()) {
+            $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        }
     }
 
     /**
