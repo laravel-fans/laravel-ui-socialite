@@ -38,10 +38,10 @@ add to `config/services.php`:
 add to `.env`:
 
 ```
-AUTH_SOCIAL_LOGIN_PROVIDERS=Facebook,GitHub,Google
-GITHUB_CLIENT_ID=asdf
-GITHUB_CLIENT_SECRET=qwer
-GITHUB_CALLBACK_URL=http://laravel-demo.localhost/login/github/callback
+AUTH_SOCIAL_LOGIN_PROVIDERS=Facebook,Twitter,Linkedin,Google,GitHub,GitLab,Bitbucket,wechat_web,wechat_service_account
+GITHUB_CLIENT_ID=foo
+GITHUB_CLIENT_SECRET=bar
+GITHUB_CALLBACK_URL=http://localhost/login/github/callback
 
 # disable password login
 AUTH_PASSWORD_LOGIN_ENABLED=0
@@ -52,7 +52,7 @@ AUTH_OPTIONS_REGISTER=0
 
 ## screenshots
 
-![Laravel Socialite Login page](https://user-images.githubusercontent.com/4971414/59020731-2a17c080-887d-11e9-8cc7-c8c46f97dd1b.png)
-![GitHub OAuth Login](https://user-images.githubusercontent.com/4971414/59006611-764f0a80-8855-11e9-9ac9-0f4de8ff6e77.png)
-![Laravel Socialite Profile page and Linked Accounts](https://user-images.githubusercontent.com/4971414/59092834-120b7400-8945-11e9-8b1d-ae50c862e6a8.png)
-![Laravel Socialite link multiple providers to one user](https://user-images.githubusercontent.com/4971414/59086178-876e4900-8933-11e9-8dad-e2a449a5689e.png)
+![Laravel Socialite Login page](https://user-images.githubusercontent.com/4971414/64499841-477d8000-d2ed-11e9-8981-e6764378462e.png)
+![GitHub OAuth Login](https://user-images.githubusercontent.com/4971414/64499857-5a905000-d2ed-11e9-8b75-3686aab2abf1.png)
+![Laravel Socialite Profile page and Linked Accounts](https://user-images.githubusercontent.com/4971414/64499866-63812180-d2ed-11e9-82c3-68f5320026c8.png)
+![Laravel Socialite link multiple providers to one user](https://user-images.githubusercontent.com/4971414/64498074-45172800-d2e5-11e9-824c-9189d46de259.png)
