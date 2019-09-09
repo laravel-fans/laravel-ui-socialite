@@ -1,11 +1,12 @@
 <?php
 
-namespace {{namespace}}Http\Controllers;
+namespace {{namespace}}Http\Controllers\Settings;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use sinkcup\LaravelUiSocialite\SocialAccount;
+use {{namespace}}Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
