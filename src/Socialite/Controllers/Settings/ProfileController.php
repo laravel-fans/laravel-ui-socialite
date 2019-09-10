@@ -33,8 +33,7 @@ class ProfileController extends Controller
         $social_login_providers = self::formatProviders(config('auth.social_login.providers'), request());
         $linked_providers = SocialAccount::where('user_id', $user->id)->select(['provider'])->pluck('provider')->all();
         return view('settings.profile', compact('user', 'social_login_providers', 'linked_providers') +
-            ['errors' => session('errors', new ViewErrorBag())] // HACK: only for test
-        );
+            ['errors' => session('errors', new ViewErrorBag())]); // HACK: only for test
     }
 
     /**
@@ -46,7 +45,7 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user = $request->user();
-        $validated_data = Validator::make($request->all(), [
+        Validator::make($request->all(), [
             'email' => [
                 Rule::unique('users')->ignore($user->id),
             ],
