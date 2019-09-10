@@ -3,6 +3,7 @@
 namespace sinkcup\LaravelUiSocialite\Socialite\Controllers;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ViewErrorBag;
 use Laravel\Socialite\Facades\Socialite;
@@ -22,23 +23,14 @@ class SocialiteLoginController extends Controller
 
     use AuthenticatesUsers;
 
-     /**
+    /**
      * Show the application's login form.
      *
      * @return \Illuminate\Http\Response
      */
     public function showLoginForm()
     {
-        $providers = config('auth.social_login.providers');
-        // "WeChat Service Account Login" must be used in WeChat app.
-        if (!stripos(request()->header('user-agent'), 'MicroMessenger')) {
-            if (in_array('wechat_service_account', $providers)) {
-                unset($providers[array_search('wechat_service_account', $providers)]);
-            }
-        } elseif (in_array('wechat_service_account', $providers)
-            && in_array('wechat_web', $providers)) {
-            unset($providers[array_search('wechat_web', $providers)]);
-        }
+        $providers = self::formatProviders(config('auth.social_login.providers'), request());
         // "WeChat Web Login" will failed if you:
         // open URL in WeChat app and then "Scan QR Code in Image", or "Choose QR Code from Album"
         if (in_array('wechat_web', $providers)) {

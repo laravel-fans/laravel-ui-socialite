@@ -126,10 +126,6 @@ class SocialiteCommand extends Command
             __DIR__ . '/Socialite/stubs/tests/TestCase.stub',
             app_path() . '/../tests/TestCase.php'
         );
-        file_put_contents(
-            app_path() . '/../tests/Feature/ProfileControllerTest.php',
-            $this->compileStub('tests/Feature/ProfileControllerTest.stub')
-        );
 
         $web_routes = file_get_contents(base_path('routes/web.php'));
         foreach (explode("\n", file_get_contents(__DIR__ . '/Socialite/stubs/routes.stub')) as $line) {
