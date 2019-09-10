@@ -35,9 +35,14 @@ class TestCase extends OrchestraTestCase
             'uses' => 'App\Http\Controllers\Auth\LoginController@handleProviderCallback',
         ]);
         Route::get('settings/profile', [
-            'uses' => 'App\Http\Controllers\ProfileController@edit',
+            'uses' => 'App\Http\Controllers\Settings\ProfileController@edit',
             'as' => 'profile.edit',
         ]);
+        Route::put('settings/profile', [
+            'uses' => 'App\Http\Controllers\Settings\ProfileController@update',
+            'as' => 'profile.update',
+        ]);
+        Route::post('logout', 'Auth\LoginController@logout')->name('logout');
         $laravel_path = __DIR__ . '/../vendor/orchestra/testbench-core/laravel';
         @mkdir($laravel_path . '/app/Http/Controllers/', 0755, true);
         @mkdir($laravel_path . '/routes/');
