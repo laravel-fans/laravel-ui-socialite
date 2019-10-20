@@ -10,7 +10,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
 
     public static function formatProviders($providers, Request $request)
     {
@@ -19,8 +21,10 @@ class Controller extends BaseController
             if (in_array('wechat_service_account', $providers)) {
                 unset($providers[array_search('wechat_service_account', $providers)]);
             }
-        } elseif (in_array('wechat_service_account', $providers)
-            && in_array('wechat_web', $providers)) {
+        } elseif (
+            in_array('wechat_service_account', $providers)
+            && in_array('wechat_web', $providers)
+        ) {
             unset($providers[array_search('wechat_web', $providers)]);
         }
         return $providers;

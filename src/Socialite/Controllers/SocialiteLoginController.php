@@ -11,6 +11,8 @@ use sinkcup\LaravelUiSocialite\SocialAccount;
 
 class SocialiteLoginController extends Controller
 {
+    use AuthenticatesUsers;
+
     /*
     |--------------------------------------------------------------------------
     | Social Login Controller
@@ -20,8 +22,6 @@ class SocialiteLoginController extends Controller
     | auto creating account to the application.
     |
     */
-
-    use AuthenticatesUsers;
 
     /**
      * Show the application's login form.

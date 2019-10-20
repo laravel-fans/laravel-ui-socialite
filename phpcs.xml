@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="PSR2-laravel">
- <description>The PSR2 standard, but ignore something for laravel.</description>
+<ruleset name="PSR12-laravel-composer">
+ <description>The PSR12 standard, but ignore something for laravel.</description>
  <!-- use preg_match https://github.com/squizlabs/PHP_CodeSniffer/issues/742#issuecomment-215250517 -->
  <exclude-pattern>/vendor/</exclude-pattern>
  <exclude-pattern>*\.js</exclude-pattern>

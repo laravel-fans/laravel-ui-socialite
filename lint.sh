@@ -13,7 +13,7 @@ Mandatory arguments to long options are mandatory for short options too.
   -f, --fix                  fix sniff violations automatically.
   -s, --standard=WORD        The name or path of the coding standard to use.
                              if you don't specify, it will try to use ./phpcs.xml,
-                             if file not exists, it will use PSR2 by default.
+                             if file not exists, it will use PSR12 by default.
   -h, --help                 display this help and exit
   [FILEs]                     One or more files and/or directories to check
                              (the current directory by default)."
@@ -77,7 +77,7 @@ if [ -z $STANDARD ]; then
     if [ -f "$DIR/phpcs.xml" ]; then
         STANDARD="$DIR/phpcs.xml"
     else
-        STANDARD="PSR2"
+        STANDARD="PSR12"
     fi
 fi
 
