@@ -20,7 +20,7 @@ class PackageServiceProvider extends ServiceProvider
         }
         // HACK: package migrations be migrated before laravel migrations when run test
         // error: There is no column with name 'password' on table 'users'.
-        if (!$this->app->runningUnitTests()) {
+        if ($this->app->config['app']['name'] != 'testbench') {
             $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
         }
     }
