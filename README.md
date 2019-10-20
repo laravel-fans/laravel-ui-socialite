@@ -32,6 +32,7 @@ add to `config/services.php`:
         'client_id' => env('GITHUB_CLIENT_ID'),
         'client_secret' => env('GITHUB_CLIENT_SECRET'),
         'redirect' => env('GITHUB_CALLBACK_URL'),
+        'scopes' => env('GITHUB_SCOPES'), // optional
     ],
 ```
 
@@ -42,6 +43,7 @@ AUTH_SOCIAL_LOGIN_PROVIDERS=Facebook,Twitter,Linkedin,Google,GitHub,GitLab,Bitbu
 GITHUB_CLIENT_ID=foo
 GITHUB_CLIENT_SECRET=bar
 GITHUB_CALLBACK_URL=http://localhost/login/github/callback
+GITHUB_SCOPES=user:email,public_repo
 
 # disable password login
 AUTH_PASSWORD_LOGIN_ENABLED=0
