@@ -75,6 +75,7 @@ class TestCase extends OrchestraTestCase
     protected function getEnvironmentSetUp($app)
     {
         // Setup default database to use sqlite :memory:
+        $app['config']->set('app.name', 'testbench');
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.testing', [
             'driver'   => 'sqlite',
