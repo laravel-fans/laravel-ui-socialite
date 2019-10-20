@@ -140,6 +140,9 @@ class SocialiteLoginControllerTest extends TestCase
         $this->assertEquals(1, SocialAccount::count());
         $socialAccountDb = SocialAccount::first();
         foreach ($socialAccount->toArray() as $k => $v) {
+            if ($k == 'updated_at') {
+                continue;
+            }
             if ($k == 'access_token') {
                 $this->assertNotEquals($v, $socialAccountDb->{$k});
             } else {
