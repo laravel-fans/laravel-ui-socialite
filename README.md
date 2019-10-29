@@ -18,6 +18,7 @@ supporting Laravel 6.0!
 
 ```
 composer require sinkcup/laravel-ui-socialite
+php artisan ui vue
 php artisan ui:auth
 php artisan ui:socialite
 php artisan migrate
