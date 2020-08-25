@@ -12,7 +12,7 @@ When logged in, you can link all providers to the current user, and login with t
 
 Special handling for [WeChat](https://sinkcup.github.io/laravel-socialite-wechat-login).
 
-supporting Laravel 6.0 and 7.0!
+supporting Laravel 6.0!
 
 ## install
 
