@@ -5,7 +5,7 @@ namespace sinkcup\LaravelUiSocialite\Tests;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Route;
 use Laravel\Ui\UiServiceProvider;
-use sinkcup\LaravelUiSocialite\PackageServiceProvider;
+use sinkcup\LaravelUiSocialite\UiSocialiteServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase
@@ -17,7 +17,7 @@ class TestCase extends OrchestraTestCase
     protected function getPackageProviders($app)
     {
         return [
-            PackageServiceProvider::class,
+            UiSocialiteServiceProvider::class,
             UiServiceProvider::class,
         ];
     }

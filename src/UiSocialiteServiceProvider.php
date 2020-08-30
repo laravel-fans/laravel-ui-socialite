@@ -4,7 +4,7 @@ namespace sinkcup\LaravelUiSocialite;
 
 use Illuminate\Support\ServiceProvider;
 
-class PackageServiceProvider extends ServiceProvider
+class UiSocialiteServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -33,6 +33,9 @@ class PackageServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/config/auth.php', 'auth');
+        $this->app->singleton(SocialiteService::class, function ($app) {
+            return new SocialiteService($app);
+        });
     }
 
     /**
