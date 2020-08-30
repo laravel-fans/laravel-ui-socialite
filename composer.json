@@ -32,7 +32,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "sinkcup\\LaravelUiSocialite\\PackageServiceProvider"
+                "sinkcup\\LaravelUiSocialite\\UiSocialiteServiceProvider"
             ]
         }
     },

@@ -8,6 +8,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Mockery;
 use sinkcup\LaravelUiSocialite\SocialAccount;
 use sinkcup\LaravelUiSocialite\Socialite\Controllers\SocialiteLoginController;
+use sinkcup\LaravelUiSocialite\SocialiteService;
 use sinkcup\LaravelUiSocialite\Tests\TestCase;
 
 class SocialiteLoginControllerTest extends TestCase
@@ -106,7 +107,7 @@ class SocialiteLoginControllerTest extends TestCase
 
     public function testConvertProviderSlugToServiceName()
     {
-        $this->assertEquals('wechat_web', SocialiteLoginController::convertProviderSlugToServiceName('wechat-web'));
+        $this->assertEquals('wechat_web', SocialiteService::convertProviderSlugToServiceName('wechat-web'));
     }
 
     public function testHandleProviderCallbackForOldUser()
@@ -120,11 +121,12 @@ class SocialiteLoginControllerTest extends TestCase
             'user_id' => $user->id,
             'provider' => $provider,
         ]);
+        $newName = $socialAccount->name . ' ' . $this->faker->word;
         $abstractUser
             ->shouldReceive('getId')
             ->andReturn($socialAccount->provider_user_id)
             ->shouldReceive('getName')
-            ->andReturn($socialAccount->name)
+            ->andReturn($newName)
             ->shouldReceive('getNickname')
             ->andReturn($socialAccount->nickname)
             ->shouldReceive('getEmail')
@@ -138,15 +140,17 @@ class SocialiteLoginControllerTest extends TestCase
         $response = $this->get('/login/' . $provider . '/callback');
         $response->assertRedirect(route('profile.edit'));
         $this->assertEquals(1, SocialAccount::count());
-        $socialAccountDb = SocialAccount::first();
+        $socialAccountDb = SocialAccount::first()->toArray();
         foreach ($socialAccount->toArray() as $k => $v) {
             if ($k == 'updated_at') {
                 continue;
             }
             if ($k == 'access_token') {
-                $this->assertNotEquals($v, $socialAccountDb->{$k});
+                $this->assertNotEquals($v, $socialAccountDb[$k]);
+            } elseif ($k == 'name') {
+                $this->assertEquals($newName, $socialAccountDb[$k]);
             } else {
-                $this->assertEquals($v, $socialAccountDb->{$k});
+                $this->assertEquals($v, $socialAccountDb[$k]);
             }
         }
     }
