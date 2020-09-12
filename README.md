@@ -17,7 +17,7 @@ supporting Laravel 6, 7...
 ## install
 
 ```
-composer require sinkcup/laravel-ui-socialite
+composer require laravel-fans/ui-socialite
 php artisan ui vue
 php artisan ui:auth
 php artisan ui:socialite

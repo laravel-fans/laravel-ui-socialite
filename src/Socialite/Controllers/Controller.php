@@ -1,6 +1,6 @@
 <?php
 
-namespace sinkcup\LaravelUiSocialite\Socialite\Controllers;
+namespace LaravelFans\UiSocialite\Socialite\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;

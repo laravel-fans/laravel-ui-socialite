@@ -1,6 +1,6 @@
 <?php
 
-namespace sinkcup\LaravelUiSocialite;
+namespace LaravelFans\UiSocialite;
 
 use InvalidArgumentException;
 use Illuminate\Console\Command;
@@ -151,7 +151,7 @@ class SocialiteCommand extends Command
      * @param $path string
      * @return string
      */
-    protected function compileControllerStub($path)
+    protected function compileControllerStub(string $path)
     {
         return $this->compileStub('controllers/' . $path);
     }
@@ -162,7 +162,7 @@ class SocialiteCommand extends Command
      * @param $path string
      * @return string
      */
-    protected function compileStub($path)
+    protected function compileStub(string $path)
     {
         return str_replace(
             '{{namespace}}',
@@ -174,10 +174,10 @@ class SocialiteCommand extends Command
     /**
      * Get full view path relative to the application's configured view path.
      *
-     * @param  string  $path
+     * @param string $path
      * @return string
      */
-    protected function getViewPath($path)
+    protected function getViewPath(string $path)
     {
         return implode(DIRECTORY_SEPARATOR, [
             config('view.paths')[0] ?? resource_path('views'), $path,

@@ -1,6 +1,6 @@
 <?php
 
-namespace sinkcup\LaravelUiSocialite;
+namespace LaravelFans\UiSocialite;
 
 use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;

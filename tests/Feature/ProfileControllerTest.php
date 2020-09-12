@@ -1,11 +1,11 @@
 <?php
 
-namespace sinkcup\LaravelUiSocialite\Tests\Feature;
+namespace LaravelFans\UiSocialite\Tests\Feature;
 
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use sinkcup\LaravelUiSocialite\SocialAccount;
-use sinkcup\LaravelUiSocialite\Tests\TestCase;
+use LaravelFans\UiSocialite\SocialAccount;
+use LaravelFans\UiSocialite\Tests\TestCase;
 
 class ProfileControllerTest extends TestCase
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace sinkcup\LaravelUiSocialite\Socialite\Controllers;
+namespace LaravelFans\UiSocialite\Socialite\Controllers;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\ViewErrorBag;
 use Laravel\Socialite\Facades\Socialite;
-use sinkcup\LaravelUiSocialite\SocialiteService;
+use LaravelFans\UiSocialite\SocialiteService;
 
 class SocialiteLoginController extends Controller
 {

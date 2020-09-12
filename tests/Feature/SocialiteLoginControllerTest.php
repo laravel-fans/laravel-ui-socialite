@@ -1,15 +1,15 @@
 <?php
 
-namespace sinkcup\LaravelUiSocialite\Tests\Feature;
+namespace LaravelFans\UiSocialite\Tests\Feature;
 
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Socialite\Facades\Socialite;
 use Mockery;
-use sinkcup\LaravelUiSocialite\SocialAccount;
-use sinkcup\LaravelUiSocialite\Socialite\Controllers\SocialiteLoginController;
-use sinkcup\LaravelUiSocialite\SocialiteService;
-use sinkcup\LaravelUiSocialite\Tests\TestCase;
+use LaravelFans\UiSocialite\SocialAccount;
+use LaravelFans\UiSocialite\Socialite\Controllers\SocialiteLoginController;
+use LaravelFans\UiSocialite\SocialiteService;
+use LaravelFans\UiSocialite\Tests\TestCase;
 
 class SocialiteLoginControllerTest extends TestCase
 {

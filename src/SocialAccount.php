@@ -1,6 +1,6 @@
 <?php
 
-namespace sinkcup\LaravelUiSocialite;
+namespace LaravelFans\UiSocialite;
 
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Socialite\AbstractUser;
