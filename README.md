@@ -1,7 +1,6 @@
 # Laravel UI Socialite
 
-[![Laravel 6](https://github.com/laravel-fans/laravel-ui-socialite/workflows/Laravel%206/badge.svg)](https://github.com/laravel-fans/laravel-ui-socialite/actions)
-[![Laravel 7](https://github.com/laravel-fans/laravel-ui-socialite/workflows/Laravel%207/badge.svg)](https://github.com/laravel-fans/laravel-ui-socialite/actions)
+[![Laravel 8](https://github.com/laravel-fans/laravel-ui-socialite/workflows/Laravel%208/badge.svg)](https://github.com/laravel-fans/laravel-ui-socialite/actions)
 [![codecov](https://codecov.io/gh/laravel-fans/laravel-ui-socialite/branch/main/graph/badge.svg)](https://codecov.io/gh/laravel-fans/laravel-ui-socialite)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/laravel-fans/laravel-ui-socialite/blob/main/LICENSE)
 
@@ -13,8 +12,6 @@ When logged in, you can link all providers to the current user, and login with t
 
 Special handling for [WeChat](https://sinkcup.github.io/laravel-socialite-wechat-login).
 
-supporting Laravel 6, 7...
-
 ## install
 
 ```
@@ -22,6 +19,7 @@ composer require laravel-fans/ui-socialite
 php artisan ui vue
 php artisan ui:auth
 php artisan ui:socialite
+php artisan vendor:publish --provider="LaravelFans\UiSocialite\UiSocialiteServiceProvider"
 php artisan migrate
 ```
 
@@ -44,7 +42,7 @@ add to `.env`:
 AUTH_SOCIAL_LOGIN_PROVIDERS=Facebook,Twitter,Linkedin,Google,GitHub,GitLab,Bitbucket,wechat_web,wechat_service_account
 GITHUB_CLIENT_ID=foo
 GITHUB_CLIENT_SECRET=bar
-GITHUB_CALLBACK_URL=http://localhost/login/github/callback
+GITHUB_CALLBACK_URL=http://127.0.0.1:8000/login/github/callback
 GITHUB_SCOPES=user:email,public_repo
 
 # disable password login

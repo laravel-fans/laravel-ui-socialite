@@ -2,9 +2,9 @@
 
 namespace LaravelFans\UiSocialite\Tests\Feature;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use LaravelFans\UiSocialite\SocialAccount;
+use LaravelFans\UiSocialite\Models\SocialAccount;
 use LaravelFans\UiSocialite\Tests\TestCase;
 
 class ProfileControllerTest extends TestCase
@@ -13,8 +13,9 @@ class ProfileControllerTest extends TestCase
 
     public function testEdit()
     {
-        $user = factory(User::class)->create();
-        $social_account = factory(SocialAccount::class)->create(['user_id' => $user->id]);
+        $user = User::factory()->create();
+        $this->app->register(\Laravel\Socialite\SocialiteServiceProvider::class);
+        $social_account = SocialAccount::factory()->create(['user_id' => $user->id]);
         $response = $this->actingAs($user)->get('/settings/profile');
 
         $response->assertViewIs('settings.profile');
@@ -27,8 +28,8 @@ class ProfileControllerTest extends TestCase
     {
         $providers = ['github', 'wechat_service_account'];
         $this->app['config']->set('auth.social_login.providers', array_merge($providers, ['wechat_web']));
-        $user = factory(User::class)->create();
-        $social_account = factory(SocialAccount::class)->create(['user_id' => $user->id]);
+        $user = User::factory()->create();
+        $social_account = SocialAccount::factory()->create(['user_id' => $user->id]);
         $response = $this->actingAs($user)
             ->withHeader(
                 'user-agent',
@@ -46,7 +47,7 @@ class ProfileControllerTest extends TestCase
     {
         $providers = ['github', 'wechat_web'];
         $this->app['config']->set('auth.social_login.providers', array_merge($providers, ['wechat_service_account']));
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/settings/profile');
 
         $response->assertViewIs('settings.profile');
@@ -57,7 +58,7 @@ class ProfileControllerTest extends TestCase
 
     public function testUpdate()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $data = [
             'email' => $this->faker->safeEmail,
             'name' => $this->faker->name,

@@ -51,24 +51,16 @@ class TestCase extends OrchestraTestCase
         @mkdir($laravel_path . '/tests/Feature/', 0755, true);
         @unlink($laravel_path . '/routes/web.php');
         touch($laravel_path . '/routes/web.php');
-        copy(__DIR__ . '/User.stub', $laravel_path . '/app/User.php');
+        @mkdir($laravel_path . '/database/factories/LaravelFans/UiSocialite/Models/', 0755, true);
         copy(__DIR__ . '/UserFactory.stub', $laravel_path . '/database/factories/UserFactory.php');
+        copy(__DIR__ . '/SocialAccountFactory.stub', $laravel_path . '/database/factories/LaravelFans/UiSocialite/Models/SocialAccountFactory.php');
+        @mkdir($laravel_path . '/app/Models/');
+        copy(__DIR__ . '/User.stub', $laravel_path . '/app/Models/User.php');
         $this->artisan('ui:auth', ['--force' => true])->run();
         $this->artisan('ui:socialite', ['--force' => true])->run();
+        $this->artisan('vendor:publish', ['--provider' => "LaravelFans\UiSocialite\UiSocialiteServiceProvider"])->run();
 
-        // TODO crash on local and Github Actions when orchestra/testbench v5(Laravel 7)
-        try {
-            $this->loadLaravelMigrations();
-        } catch (\PDOException $e) {
-            echo $e->getMessage() . "\n";
-        }
-        $this->loadMigrationsFrom(__DIR__ . '/../src/database/migrations');
-        // TODO crash on GitHub Actions when orchestra/testbench v5(Laravel 7)
-        try {
-            $this->artisan('migrate')->run();
-        } catch (\PDOException $e) {
-            echo $e->getMessage() . "\n";
-        }
+        $this->artisan('migrate')->run();
         $this->app->register(\Laravel\Socialite\SocialiteServiceProvider::class);
         $this->app->make('Illuminate\Contracts\Http\Kernel')
             ->pushMiddleware('Illuminate\Session\Middleware\StartSession');
@@ -94,5 +86,6 @@ class TestCase extends OrchestraTestCase
             'database' => ':memory:',
             'prefix'   => '',
         ]);
+        $app['config']->set('auth.providers.users.model', 'App\\Models\\User');
     }
 }

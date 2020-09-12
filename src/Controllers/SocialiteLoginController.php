@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelFans\UiSocialite\Socialite\Controllers;
+namespace LaravelFans\UiSocialite\Controllers;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\ViewErrorBag;
@@ -62,6 +62,7 @@ class SocialiteLoginController extends Controller
      * Obtain the user information from Socialite Provider.
      *
      * @param string $providerSlug
+     * @param SocialiteService $socialiteService
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handleProviderCallback(string $providerSlug, SocialiteService $socialiteService)

@@ -1,0 +1,38 @@
+<?php
+
+namespace Database\Factories\LaravelFans\UiSocialite\Models;
+
+use LaravelFans\UiSocialite\Models\SocialAccount;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class SocialAccountFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = SocialAccount::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'user_id' => $this->faker->randomNumber(),
+            'provider' => $this->faker->word,
+            'provider_user_id' => $this->faker->word . $this->faker->randomNumber(),
+            'access_token' => $this->faker->md5,
+            'refresh_token' => null,
+            'expires_in' => null,
+            'nickname' => $this->faker->lastName,
+            'name' => $this->faker->name,
+            'email' => $this->faker->safeEmail,
+            'avatar' => $this->faker->imageUrl(),
+            'raw' => null,
+        ];
+    }
+}
