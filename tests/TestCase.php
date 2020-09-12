@@ -65,11 +65,10 @@ class TestCase extends OrchestraTestCase
         $this->loadMigrationsFrom(__DIR__ . '/../src/database/migrations');
         // TODO crash on GitHub Actions when orchestra/testbench v5(Laravel 7)
         try {
-            $this->loadLaravelMigrations();
+            $this->artisan('migrate')->run();
         } catch (\PDOException $e) {
             echo $e->getMessage() . "\n";
         }
-        $this->artisan('migrate')->run();
         $this->app->register(\Laravel\Socialite\SocialiteServiceProvider::class);
         $this->app->make('Illuminate\Contracts\Http\Kernel')
             ->pushMiddleware('Illuminate\Session\Middleware\StartSession');
