@@ -18,11 +18,10 @@ class UiSocialiteServiceProvider extends ServiceProvider
                 SocialiteCommand::class,
             ]);
         }
-        // HACK: package migrations be migrated before laravel migrations when run test
-        // error: There is no column with name 'password' on table 'users'.
-        if ($this->app->config['app']['name'] != 'testbench') {
-            $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
-        }
+
+        $this->publishes([
+            __DIR__ . '/../database/migrations' => database_path('migrations'),
+        ], 'ui-socialite-migrations');
     }
 
     /**
@@ -32,7 +31,7 @@ class UiSocialiteServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/config/auth.php', 'auth');
+        $this->mergeConfigFrom(__DIR__ . '/../config/auth.php', 'auth');
         $this->app->singleton(SocialiteService::class, function ($app) {
             return new SocialiteService($app);
         });

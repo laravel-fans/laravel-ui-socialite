@@ -1,14 +1,13 @@
 <?php
 
-namespace LaravelFans\UiSocialite\Socialite\Controllers\Settings;
+namespace LaravelFans\UiSocialite\Controllers\Settings;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ViewErrorBag;
 use Illuminate\Validation\Rule;
-use LaravelFans\UiSocialite\SocialAccount;
-use LaravelFans\UiSocialite\Socialite\Controllers\Controller;
-use LaravelFans\UiSocialite\Socialite\Controllers\SocialiteLoginController;
+use LaravelFans\UiSocialite\Models\SocialAccount;
+use LaravelFans\UiSocialite\Controllers\Controller;
 
 class ProfileController extends Controller
 {

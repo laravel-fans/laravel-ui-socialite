@@ -1,12 +1,15 @@
 <?php
 
-namespace LaravelFans\UiSocialite;
+namespace LaravelFans\UiSocialite\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Socialite\AbstractUser;
 
 class SocialAccount extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
     protected $casts = [
         'raw' => 'array',

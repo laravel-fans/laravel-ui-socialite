@@ -96,7 +96,7 @@ class SocialiteCommand extends Command
             }
 
             $version = new Version(app()->version());
-            $path = __DIR__ . '/Socialite/' . $this->argument('type') . '-stubs/';
+            $path = __DIR__ . '/' . $this->argument('type') . '-stubs/';
             $file_for_version = $key . '_' . $version->major . '.' . $version->minor;
             $file_path = file_exists($path . $file_for_version) ? $path . $file_for_version : $path . $key;
             copy($file_path, $view);
@@ -119,16 +119,12 @@ class SocialiteCommand extends Command
             $this->compileControllerStub('settings/ProfileController.stub')
         );
         copy(
-            __DIR__ . '/Socialite/stubs/database/factories/SocialAccountFactory.stub',
-            database_path('factories/SocialAccountFactory.php')
-        );
-        copy(
-            __DIR__ . '/Socialite/stubs/tests/TestCase.stub',
+            __DIR__ . '/stubs/tests/TestCase.stub',
             app_path() . '/../tests/TestCase.php'
         );
 
         $web_routes = file_get_contents(base_path('routes/web.php'));
-        foreach (explode("\n", file_get_contents(__DIR__ . '/Socialite/stubs/routes.stub')) as $line) {
+        foreach (explode("\n", file_get_contents(__DIR__ . '/stubs/routes.stub')) as $line) {
             if (empty($line)) {
                 continue;
             }
@@ -167,7 +163,7 @@ class SocialiteCommand extends Command
         return str_replace(
             '{{namespace}}',
             $this->laravel->getNamespace(),
-            file_get_contents(__DIR__ . '/Socialite/stubs/' . $path)
+            file_get_contents(__DIR__ . '/stubs/' . $path)
         );
     }
 

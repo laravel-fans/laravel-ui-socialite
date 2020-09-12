@@ -4,6 +4,7 @@ namespace LaravelFans\UiSocialite;
 
 use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
+use LaravelFans\UiSocialite\Models\SocialAccount;
 
 class SocialiteService
 {

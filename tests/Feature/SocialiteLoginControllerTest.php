@@ -2,12 +2,11 @@
 
 namespace LaravelFans\UiSocialite\Tests\Feature;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Socialite\Facades\Socialite;
 use Mockery;
-use LaravelFans\UiSocialite\SocialAccount;
-use LaravelFans\UiSocialite\Socialite\Controllers\SocialiteLoginController;
+use LaravelFans\UiSocialite\Models\SocialAccount;
 use LaravelFans\UiSocialite\SocialiteService;
 use LaravelFans\UiSocialite\Tests\TestCase;
 
@@ -116,8 +115,8 @@ class SocialiteLoginControllerTest extends TestCase
         $this->app['config']->set('services.' . $provider, $this->serviceConfig);
         $abstractUser = Mockery::mock('Laravel\Socialite\Two\User');
         $abstractUser->token = $this->faker->md5;
-        $user = factory(User::class)->create();
-        $socialAccount = factory(SocialAccount::class)->create([
+        $user = User::factory()->create();
+        $socialAccount = SocialAccount::factory()->create([
             'user_id' => $user->id,
             'provider' => $provider,
         ]);

@@ -3,12 +3,12 @@
     "description": "Automatically generate database, pages, and routes for Laravel Socialite",
     "type": "library",
     "require": {
-        "php": ">=7.2",
-        "laravel/framework": "^v6.18.37 | ^v7.28.1",
+        "php": ">=7.3",
+        "laravel/framework": "^v8.1.0",
         "laravel/socialite": ">=v4.4.1",
         "doctrine/dbal": ">=2.9",
         "phlak/semver": ">=2.0",
-        "laravel/ui": ">=v1.2.0"
+        "laravel/ui": ">=v3.0.0"
     },
     "suggest": {
         "laravel-fans/socialite-providers": "Providers for Laravel Socialite"
@@ -28,6 +28,7 @@
     "autoload-dev": {
         "psr-4": {
             "App\\": "vendor/orchestra/testbench-core/laravel/app/",
+            "Database\\Factories\\": "vendor/orchestra/testbench-core/laravel/database/factories/",
             "LaravelFans\\UiSocialite\\Tests\\": "tests/"
         }
     },
@@ -40,9 +41,9 @@
         }
     },
     "require-dev": {
-        "orchestra/testbench": "^v4.8.0 | ^v5.5.0",
+        "orchestra/testbench": "^v6.0.0",
         "squizlabs/php_codesniffer": ">=3.5.6",
         "fzaninotto/faker": ">=v1.9.1",
-        "phpunit/phpunit": "^8.5.8"
+        "phpunit/phpunit": "^9.3.8"
     }
 }

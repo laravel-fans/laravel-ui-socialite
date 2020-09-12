@@ -1,0 +1,8 @@
+
+Route::get('login/{provider}', [App\Http\Controllers\Auth\LoginController::class, 'redirectToProvider']);
+Route::get('login/{provider}/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleProviderCallback']);
+
+Route::get('settings/profile', [App\Http\Controllers\Settings\ProfileController::class, 'edit'])->name('profile.edit');
+Route::put('settings/profile', [App\Http\Controllers\Settings\ProfileController::class, 'update'])->name('profile.update');
+
+Auth::routes(config('auth.options') ?? []);
