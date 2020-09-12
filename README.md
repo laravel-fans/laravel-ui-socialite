@@ -1,8 +1,9 @@
 # Laravel UI Socialite
 
-[![CircleCI](https://circleci.com/gh/sinkcup/laravel-ui-socialite.svg?style=svg)](https://circleci.com/gh/sinkcup/laravel-ui-socialite)
-[![codecov](https://codecov.io/gh/sinkcup/laravel-ui-socialite/branch/master/graph/badge.svg)](https://codecov.io/gh/sinkcup/laravel-ui-socialite)
-[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/sinkcup/laravel-ui-socialite/blob/master/LICENSE)
+[![Laravel 6](https://github.com/laravel-fans/laravel-ui-socialite/workflows/Laravel%206/badge.svg)](https://github.com/laravel-fans/laravel-ui-socialite/actions)
+[![Laravel 7](https://github.com/laravel-fans/laravel-ui-socialite/workflows/Laravel%207/badge.svg)](https://github.com/laravel-fans/laravel-ui-socialite/actions)
+[![codecov](https://codecov.io/gh/laravel-fans/laravel-ui-socialite/branch/main/graph/badge.svg)](https://codecov.io/gh/laravel-fans/laravel-ui-socialite)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/laravel-fans/laravel-ui-socialite/blob/main/LICENSE)
 
 Automatically generate database, pages, and routes for Laravel Socialite. Just like `php artisan ui:auth`.
 
