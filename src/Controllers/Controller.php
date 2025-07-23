@@ -14,19 +14,4 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
-    public static function formatProviders($providers, Request $request)
-    {
-        // "WeChat Service Account Login" must be used in WeChat app.
-        if (!stripos($request->header('user-agent'), 'MicroMessenger')) {
-            if (in_array('wechat_service_account', $providers)) {
-                unset($providers[array_search('wechat_service_account', $providers)]);
-            }
-        } elseif (
-            in_array('wechat_service_account', $providers)
-            && in_array('wechat_web', $providers)
-        ) {
-            unset($providers[array_search('wechat_web', $providers)]);
-        }
-        return $providers;
-    }
 }

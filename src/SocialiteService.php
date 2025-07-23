@@ -35,7 +35,7 @@ class SocialiteService
             $remote_user = $driver->scopes(config("services.{$provider}.scopes"))
                 ->user();
         } catch (\Exception $e) {
-            Log::warning('Socialite Login failed', [
+            Log::error('Socialite Login failed', [
                 'provider' => $provider,
                 'exception' => [
                     'name' => get_class($e),

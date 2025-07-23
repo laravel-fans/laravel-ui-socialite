@@ -3,13 +3,16 @@
 namespace LaravelFans\UiSocialite\Controllers;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\ViewErrorBag;
 use Laravel\Socialite\Facades\Socialite;
 use LaravelFans\UiSocialite\SocialiteService;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
-class SocialiteLoginController extends Controller
+class SocialiteLoginController extends BaseController
 {
-    use AuthenticatesUsers;
+    use AuthorizesRequests;
 
     /*
     |--------------------------------------------------------------------------
@@ -21,25 +24,25 @@ class SocialiteLoginController extends Controller
     |
     */
 
-    /**
-     * Show the application's login form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showLoginForm()
+    public static function formatProviders($providers, Request $request)
     {
-        $providers = self::formatProviders(config('auth.social_login.providers'), request());
-        // "WeChat Web Login" will failed if you:
-        // open URL in WeChat app and then "Scan QR Code in Image", or "Choose QR Code from Album"
-        if (in_array('wechat_web', $providers)) {
-            // set state for QR iframe Login
-            session()->put('state', csrf_token());
+        // "WeChat Service Account Login" must be used in WeChat app.
+        if (!stripos($request->header('user-agent'), 'MicroMessenger')) {
+            if (in_array('wechat_service_account', $providers)) {
+                unset($providers[array_search('wechat_service_account', $providers)]);
+            }
+        } elseif (
+            in_array('wechat_service_account', $providers)
+            && in_array('wechat_web', $providers)
+        ) {
+            unset($providers[array_search('wechat_web', $providers)]);
         }
-        return view('auth.login', [
-            'social_login' => array_merge(config('auth.social_login'), compact('providers')),
-            'password_login' => config('auth.password_login'),
-            'errors' => session('errors', new ViewErrorBag()), // HACK: only for test
-        ]);
+        $result = [];
+        foreach ($providers as $provider) {
+            $slug = strtolower(str_replace('_', '-', $provider));
+            $result[$slug] = $provider;
+        }
+        return $result;
     }
 
     /**
@@ -70,11 +73,12 @@ class SocialiteLoginController extends Controller
         try {
             $user = $socialiteService->createUser($providerSlug);
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return $this->sendFailedSocialLoginResponse($providerSlug);
         }
 
         auth()->login($user);
-        return redirect()->intended($this->redirectPath());
+        return redirect()->intended('dashboard');
     }
 
     /**
